@@ -12,18 +12,20 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_ROOT_PASSWORD: password
-      # This doesn't seem to work if container_name is set or at all
       MYSQL_DATABASE: speedway_trials
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      # Create user; requires a new volume. Will not create on existing volumes.
+      MYSQL_USER: speedracer
+      MYSQL_PASSWORD: zoom
     ports:
-      - "3306:3306"
+#     Map local port 3307 to container port 3306 to prevent conflict with local MySQL
+      - "3307:3306"
   api:
     # REPLACE registry/repo:tag with your registry and repo details
     image: lotech/speedway_api:latest
     container_name: speedway_api
     depends_on:
       - mysqldb
+    restart: always
     deploy:
       replicas: 5
       resources:

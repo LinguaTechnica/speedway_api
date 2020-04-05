@@ -12,18 +12,3 @@ WORKDIR /app
 COPY --from=build build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8080
-
-# Build docker image
-# $ docker build -t jokeservice .
-#
-# Deploy joke service locally
-# $ run -p 8080:8080 jokeservice
-# should be available at http://localhost:8080/api/jokes
-#
-# Push to dockerhub
-# $ docker login
-# $ docker tag jokeservice dockerhandle/jokeservice
-# $ docker push dockerhandle/jokeservice
-#
-# Retrieve the image from docker hub
-# $ docker pull dockerhandle/jokeservice

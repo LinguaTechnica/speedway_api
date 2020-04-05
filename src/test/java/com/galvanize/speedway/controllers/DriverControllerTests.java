@@ -1,5 +1,6 @@
 package com.galvanize.speedway.controllers;
 
+import com.galvanize.speedway.SpeedwayApplicationTests;
 import com.galvanize.speedway.entities.Driver;
 import com.galvanize.speedway.repositories.DriverRepository;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DriverControllerTests {
+public class DriverControllerTests extends SpeedwayApplicationTests {
 
     @Autowired
     private DriverController controller;
