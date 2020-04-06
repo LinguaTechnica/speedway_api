@@ -1,11 +1,21 @@
 # Dockerizing a Spring Boot App
 
+To use:
+``` 
+docker run lotech/speedway_api:dev
+```
 Instructions: 
 - https://spring.io/guides/gs/spring-boot-docker/#scratch
 
 Using the Jib package is FAR faster and easier than doing it from the local gradle.
 
-Common commands:
+### Build Reports
+
+Docker/gradle also writes reports when a docker build is run. They're HTML documents that can be found in `build/reports/tests/test/index.html` and contain info about the failures and successes of the run.
+
+
+
+### Common commands:
 
 ``` 
 # docker-compose exec service_name command
@@ -17,6 +27,8 @@ docker-compose exec mysqldb bash
 ```
 
 ## Docker Compose
+
+Docker compose will build and launch services for you. Configure them with `docker-compose.yaml`.  Any env variables that are on the container can be used and/or overwritten using the yaml file.
 
 [Environment variables](https://docs.docker.com/compose/environment-variables/#pass-environment-variables-to-containers) can be used in docker-compose.yaml.
 

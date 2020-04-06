@@ -3,7 +3,6 @@ version: "3"
 services:
   mysqldb:
     image: mysql:8
-    # This appears to count as the database name as well
     container_name: speedwaydb
     volumes:
       - speedwaydata:/var/lib/mysql
@@ -17,15 +16,17 @@ services:
       MYSQL_USER: speedracer
       MYSQL_PASSWORD: zoom
     ports:
-#     Map local port 3307 to container port 3306 to prevent conflict with local MySQL
+    # Map local port 3307 to container port 3306 to prevent conflict with local MySQL
       - "3307:3306"
   api:
-    # REPLACE registry/repo:tag with your registry and repo details
     image: lotech/speedway_api:latest
     container_name: speedway_api
+    environment:
+      DB_USER: speedracer
+      DB_PASSWORD: zoom
+      DB_PWD: zoom
     depends_on:
       - mysqldb
-    restart: always
     deploy:
       replicas: 5
       resources:
@@ -38,10 +39,10 @@ services:
       - "8080:8080"
     networks:
       - speedwaynet
-
+# Persists data across deployments so database isn't lost
 volumes:
   speedwaydata:
     driver: local
-
+# Defines a shared network for all services to connect them and share data
 networks:
   speedwaynet:
