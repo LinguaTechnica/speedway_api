@@ -1,6 +1,14 @@
 # Dockerizing a Spring Boot App
 
-To use:
+To use, first edit the environment variables found in `application.properties` to match your environment:
+
+- DB_USER
+- DB_PASSWORD
+- DB_HOST
+- DB_PORT
+- DB_NAME
+
+
 ``` 
 docker run lotech/speedway_api:dev
 ```
@@ -13,17 +21,14 @@ Using the Jib package is FAR faster and easier than doing it from the local grad
 
 Docker/gradle also writes reports when a docker build is run. They're HTML documents that can be found in `build/reports/tests/test/index.html` and contain info about the failures and successes of the run.
 
-
-
 ### Common commands:
 
-``` 
+```bash
 # docker-compose exec service_name command
 docker-compose exec mysqldb bash
 
 # Build docker image with gradle
 ./gradlew jibDockerBuild --image=repo_name/image_name
-
 ```
 
 ## Docker Compose
@@ -43,11 +48,8 @@ If data is persisted via volumes, then database changes to the compose file will
 
 `docker-compose down -v`
 
-
-
 ## Troubleshooting
 
 1. Must rebuild before running compose if there have been changes to the app or config
-
 
 There's no consistently documented way to use `docker build` on a gradle project that doesn't have user permissions issues when connecting with the database.

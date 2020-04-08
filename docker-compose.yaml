@@ -19,12 +19,12 @@ services:
     # Map local port 3307 to container port 3306 to prevent conflict with local MySQL
       - "3307:3306"
   api:
-    image: lotech/speedway_api:latest
+    image: lotech/speedway_api:dev
     container_name: speedway_api
     environment:
       DB_USER: speedracer
       DB_PASSWORD: zoom
-      DB_PWD: zoom
+      SPRING_PROFILE_ACTIVE: dev
     depends_on:
       - mysqldb
     deploy:

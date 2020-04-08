@@ -1,14 +1,14 @@
 # Docker file for two phase build
-# Phase 1 - Build the application in it's own container named "build"
-FROM openjdk:11 as build
+# Phase 1 - Build the application .jar file and name it builder
+FROM openjdk:11.0-jdk-slim as builder
 VOLUME /tmp
 COPY . .
 RUN ./gradlew build
 
-# Phase 2 - Build the actual docker container with only the jar file
-FROM openjdk:11
+# Phase 2 - Build container with runtime only to use .jar file within
+FROM openjdk:11.0-jre-slim
 WORKDIR /app
-# Copy file from the "build container identified in line 3
-COPY --from=build build/libs/*.jar app.jar
+# Copy .jar file (aka, builder)
+COPY --from=builder build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
 EXPOSE 8080
