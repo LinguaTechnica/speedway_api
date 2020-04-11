@@ -6,7 +6,7 @@ This is a project to demonstrate for students how to configure Docker and use Do
 
 You can run it directly from Docker Hub by using `docker run lotech/speedway_api:latest`.
 
-You can also pull it to local to build and run it. But you must first edit the environment variables found in `application.properties` to run it:
+You can also pull this repo to local to build and run. But you must first edit the environment variables found in `application.properties` for your app:
 
 - DB_USER
 - DB_PASSWORD
@@ -22,9 +22,7 @@ This app has 3 configurations:
 * `application.properties`: Spring profiles for the app config (test, prod and dev).
 * `docker-compose.yaml`: The stack configuration which includes MySQL and the Spring service.
 
-All environment variables for the Spring application are stored in the environment. Those variables are then used for all other configurations in the app.
-
-Docker has it's own environments for each container and those variables are defined in `docker-compose.yaml`. By configuring the properties files, you can streamline the build and running of the app for any environment.
+All environment variables for the Spring application are stored in the environment. Docker has it's own environments for each container and those variables are defined in `docker-compose.yaml`. By configuring the properties files, you can streamline the build and running of the app for any environment.
 
 Try building and running the app to get a closer look at how they work.
 
@@ -32,7 +30,7 @@ Try building and running the app to get a closer look at how they work.
 docker build -t speedway_api:dev
 docker run speedway_api:dev
 
-# or the other builds
+# or the other tags
 docker build -t speedway_api:test
 docker build -t speedway_api:latest
 ```
@@ -80,6 +78,5 @@ If data is persisted via volumes, then database changes to the compose file will
 
 ## Troubleshooting
 
-1. Must rebuild before running compose if there have been changes to the app or config
-
-There's no consistently documented way to use `docker build` on a gradle project that doesn't have user permissions issues when connecting with the database.
+1. Must rebuild before running compose if there have been changes to the app or app config.
+2. Your environment variables should be consistent across versions and builds.
